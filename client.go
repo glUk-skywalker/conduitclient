@@ -56,3 +56,29 @@ func (c Client) request(path string, params url.Values) (json.RawMessage, error)
 
 	return phabResp.Result, nil
 }
+
+// UserWhoAmIResponse is the response stricture for the reuqest `user.whoami`
+type UserWhoAmIResponse struct {
+	Phid         string   `json:"phid"`
+	UserName     string   `json:"userName"`
+	RealName     string   `json:"realName"`
+	Image        string   `json:"image"`
+	URI          string   `json:"uri"`
+	Roles        []string `json:"roles"`
+	PrimaryEmail string   `json:"primaryEmail"`
+}
+
+// UserWhoAmI performs the `service.whoami` request
+func (c Client) UserWhoAmI() (UserWhoAmIResponse, error) {
+	basicResp, err := c.request("/user.whoami", url.Values{})
+	if err != nil {
+		return UserWhoAmIResponse{}, errors.New("whoami rquest error: " + err.Error())
+	}
+
+	var resp UserWhoAmIResponse
+	err = json.Unmarshal(basicResp, &resp)
+	if err != nil {
+		return UserWhoAmIResponse{}, errors.New("response parsing error: " + err.Error())
+	}
+	return resp, nil
+}
