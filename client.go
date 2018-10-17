@@ -39,7 +39,7 @@ func (c Client) request(path string, params url.Values) (json.RawMessage, error)
 		return []byte{}, errors.New("reading response error: " + err.Error())
 	}
 
-	var conduitResp responses.ConduitBasicReponse
+	var conduitResp responses.ConduitBasicResponse
 	err = json.Unmarshal(content, &conduitResp)
 	if err != nil {
 		return []byte{}, errors.New("response parsing error: " + err.Error())
