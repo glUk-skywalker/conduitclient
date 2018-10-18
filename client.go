@@ -1,4 +1,4 @@
-package ConduitClient
+package conduitclient
 
 import (
 	"encoding/json"
@@ -8,10 +8,16 @@ import (
 	"net/url"
 	"strconv"
 
-	"./responses"
+	"github.com/gluk-skywalker/conduitclient/parameters"
+	"github.com/gluk-skywalker/conduitclient/responses"
 )
 
-// Client is object for interaction with the P_h_a_bricator conduit API
+// New creates and instance of Client
+func New(path string, token string) Client {
+	return Client{path, token}
+}
+
+// Client is object for interaction with the Phabricator conduit API
 type Client struct {
 	url   string
 	token string
@@ -39,7 +45,7 @@ func (c Client) request(path string, params url.Values) (json.RawMessage, error)
 		return []byte{}, errors.New("reading response error: " + err.Error())
 	}
 
-	var conduitResp responses.ConduitBasicResponse
+	var conduitResp responses.ConduitBasic
 	err = json.Unmarshal(content, &conduitResp)
 	if err != nil {
 		return []byte{}, errors.New("response parsing error: " + err.Error())
@@ -53,8 +59,8 @@ func (c Client) request(path string, params url.Values) (json.RawMessage, error)
 }
 
 // UserWhoAmI performs the `service.whoami` request
-func (c Client) UserWhoAmI() (responses.UserWhoAmIResponse, error) {
-	var userData responses.UserWhoAmIResponse
+func (c Client) UserWhoAmI() (responses.UserWhoAmI, error) {
+	var userData responses.UserWhoAmI
 
 	basicResp, err := c.request("user.whoami", url.Values{})
 	if err != nil {
@@ -66,4 +72,26 @@ func (c Client) UserWhoAmI() (responses.UserWhoAmIResponse, error) {
 		return userData, errors.New("response parsing error: " + err.Error())
 	}
 	return userData, nil
+}
+
+// ProjectSearch performs the `project.search` request
+func (c Client) ProjectSearch(params parameters.ProjectSearch) (responses.ProjectSearch, error) {
+	var projectData responses.ProjectSearch
+
+	urlParams := url.Values{}
+	// TODO: SET THE PARAMETERS
+	// if len(params.QueryKey) > 0
+	// end
+
+	basicResp, err := c.request("project.search", urlParams)
+	if err != nil {
+		return projectData, errors.New("project.search rquest error: " + err.Error())
+	}
+
+	err = json.Unmarshal(basicResp, &projectData)
+	if err != nil {
+		return projectData, errors.New("response parsing error: " + err.Error())
+	}
+
+	return projectData, nil
 }
