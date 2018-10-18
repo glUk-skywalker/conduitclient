@@ -1,10 +1,8 @@
 package responses
 
-type project struct {
-	ID int `json:"id"`
-}
+import "github.com/gluk-skywalker/conduitclient/objects"
 
 // ProjectSearch is the response stricture for the reuqest `project.search`
 type ProjectSearch struct {
-	Data []project `json:"data"`
+	Data []objects.Project `json:"data"`
 }
