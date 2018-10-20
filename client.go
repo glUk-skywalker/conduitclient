@@ -14,7 +14,7 @@ import (
 
 // New creates and instance of Client
 func New(path string, token string) Client {
-	return Client{path, token}
+	return Client{url: path, token: token}
 }
 
 // Client is object for interaction with the Phabricator conduit API
