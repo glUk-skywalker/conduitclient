@@ -52,7 +52,7 @@ func (c Client) request(path string, params url.Values) (json.RawMessage, error)
 	}
 
 	if conduitResp.ErrorCode != "" {
-		return []byte{}, errors.New("conduit error: " + conduitResp.ErrorInfo)
+		return []byte{}, errors.New("conduit error: [" + conduitResp.ErrorCode + "] " + conduitResp.ErrorInfo)
 	}
 
 	return conduitResp.Result, nil
