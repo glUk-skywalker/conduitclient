@@ -27,10 +27,11 @@ func (c Client) generateURL(conduitMethod string, params url.Values) string {
 	return c.url + "/api/" + conduitMethod + "?" + params.Encode()
 }
 
-func (c Client) request(path string, params url.Values) (json.RawMessage, error) {
-	params.Set("api.token", c.token)
+func (c Client) request(path string, params interface{ ToConduitParams() url.Values }) (json.RawMessage, error) {
+	urlParams := params.ToConduitParams()
+	urlParams.Set("api.token", c.token)
 
-	resp, err := http.Get(c.generateURL(path, params))
+	resp, err := http.Get(c.generateURL(path, urlParams))
 	if err != nil {
 		return []byte{}, errors.New("request error: " + err.Error())
 	}
@@ -62,7 +63,7 @@ func (c Client) request(path string, params url.Values) (json.RawMessage, error)
 func (c Client) UserWhoAmI() (responses.UserWhoAmI, error) {
 	var userData responses.UserWhoAmI
 
-	basicResp, err := c.request("user.whoami", url.Values{})
+	basicResp, err := c.request("user.whoami", parameters.UserWhoAmI{})
 	if err != nil {
 		return userData, errors.New("whoami rquest error: " + err.Error())
 	}
@@ -78,12 +79,7 @@ func (c Client) UserWhoAmI() (responses.UserWhoAmI, error) {
 func (c Client) ProjectSearch(params parameters.ProjectSearch) (responses.ProjectSearch, error) {
 	var projectData responses.ProjectSearch
 
-	urlParams := url.Values{}
-	// TODO: SET THE PARAMETERS
-	// if len(params.QueryKey) > 0
-	// end
-
-	basicResp, err := c.request("project.search", urlParams)
+	basicResp, err := c.request("project.search", params)
 	if err != nil {
 		return projectData, errors.New("project.search rquest error: " + err.Error())
 	}
