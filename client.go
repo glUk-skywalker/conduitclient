@@ -50,6 +50,22 @@ func (c client) ProjectSearch(params parameters.ProjectSearch) (responses.Projec
 	return projectData, nil
 }
 
+func (c client) ManiphestSearch(params parameters.ManiphestSearch) (responses.ManiphestSearch, error) {
+	var tasksData responses.ManiphestSearch
+
+	basicResp, err := c.request("maniphest.search", params)
+	if err != nil {
+		return tasksData, errors.New("maniphest.search rquest error: " + err.Error())
+	}
+
+	err = json.Unmarshal(basicResp, &tasksData)
+	if err != nil {
+		return tasksData, errors.New("response parsing error: " + err.Error())
+	}
+
+	return tasksData, nil
+}
+
 // client is object for interaction with the Phabricator conduit API
 type client struct {
 	url   string
