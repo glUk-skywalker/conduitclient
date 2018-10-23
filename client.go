@@ -83,6 +83,23 @@ func (c client) ProjectColumnSearch(params parameters.ProjectColumnSearch) (resp
 	return columnsData, nil
 }
 
+// ManiphestEdit performs the `maniphest.edit` request
+func (c client) ManiphestEdit(params parameters.ManiphestEdit) (responses.ManiphestEdit, error) {
+	var editData responses.ManiphestEdit
+
+	basicResp, err := c.request("maniphest.edit", params)
+	if err != nil {
+		return editData, errors.New("maniphest.edit rquest error: " + err.Error())
+	}
+
+	err = json.Unmarshal(basicResp, &editData)
+	if err != nil {
+		return editData, errors.New("response parsing error: " + err.Error())
+	}
+
+	return editData, nil
+}
+
 // client is object for interaction with the Phabricator conduit API
 type client struct {
 	url   string
