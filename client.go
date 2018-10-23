@@ -66,6 +66,23 @@ func (c client) ManiphestSearch(params parameters.ManiphestSearch) (responses.Ma
 	return tasksData, nil
 }
 
+// ProjectColumnSearch performs the `project.column.search` request
+func (c client) ProjectColumnSearch(params parameters.ProjectColumnSearch) (responses.ProjectColumnSearch, error) {
+	var columnsData responses.ProjectColumnSearch
+
+	basicResp, err := c.request("project.column.search", params)
+	if err != nil {
+		return columnsData, errors.New("project.column.search rquest error: " + err.Error())
+	}
+
+	err = json.Unmarshal(basicResp, &columnsData)
+	if err != nil {
+		return columnsData, errors.New("response parsing error: " + err.Error())
+	}
+
+	return columnsData, nil
+}
+
 // client is object for interaction with the Phabricator conduit API
 type client struct {
 	url   string
