@@ -12,13 +12,13 @@ import (
 	"github.com/gluk-skywalker/conduitclient/responses"
 )
 
-// New creates and instance of client
-func New(path string, token string) client {
-	return client{url: path, token: token}
+// New creates and instance of Client
+func New(path string, token string) Client {
+	return Client{url: path, token: token}
 }
 
 // UserWhoAmI performs the `service.whoami` request
-func (c client) UserWhoAmI() (responses.UserWhoAmI, error) {
+func (c Client) UserWhoAmI() (responses.UserWhoAmI, error) {
 	var userData responses.UserWhoAmI
 
 	basicResp, err := c.request("user.whoami", parameters.UserWhoAmI{})
@@ -34,7 +34,7 @@ func (c client) UserWhoAmI() (responses.UserWhoAmI, error) {
 }
 
 // ProjectSearch performs the `project.search` request
-func (c client) ProjectSearch(params parameters.ProjectSearch) (responses.ProjectSearch, error) {
+func (c Client) ProjectSearch(params parameters.ProjectSearch) (responses.ProjectSearch, error) {
 	var projectData responses.ProjectSearch
 
 	basicResp, err := c.request("project.search", params)
@@ -50,7 +50,7 @@ func (c client) ProjectSearch(params parameters.ProjectSearch) (responses.Projec
 	return projectData, nil
 }
 
-func (c client) ManiphestSearch(params parameters.ManiphestSearch) (responses.ManiphestSearch, error) {
+func (c Client) ManiphestSearch(params parameters.ManiphestSearch) (responses.ManiphestSearch, error) {
 	var tasksData responses.ManiphestSearch
 
 	basicResp, err := c.request("maniphest.search", params)
@@ -67,7 +67,7 @@ func (c client) ManiphestSearch(params parameters.ManiphestSearch) (responses.Ma
 }
 
 // ProjectColumnSearch performs the `project.column.search` request
-func (c client) ProjectColumnSearch(params parameters.ProjectColumnSearch) (responses.ProjectColumnSearch, error) {
+func (c Client) ProjectColumnSearch(params parameters.ProjectColumnSearch) (responses.ProjectColumnSearch, error) {
 	var columnsData responses.ProjectColumnSearch
 
 	basicResp, err := c.request("project.column.search", params)
@@ -84,7 +84,7 @@ func (c client) ProjectColumnSearch(params parameters.ProjectColumnSearch) (resp
 }
 
 // ManiphestEdit performs the `maniphest.edit` request
-func (c client) ManiphestEdit(params parameters.ManiphestEdit) (responses.ManiphestEdit, error) {
+func (c Client) ManiphestEdit(params parameters.ManiphestEdit) (responses.ManiphestEdit, error) {
 	var editData responses.ManiphestEdit
 
 	basicResp, err := c.request("maniphest.edit", params)
@@ -100,17 +100,17 @@ func (c client) ManiphestEdit(params parameters.ManiphestEdit) (responses.Maniph
 	return editData, nil
 }
 
-// client is object for interaction with the Phabricator conduit API
-type client struct {
+// Client is object for interaction with the Phabricator conduit API
+type Client struct {
 	url   string
 	token string
 }
 
-func (c client) generateURL(conduitMethod string, params url.Values) string {
+func (c Client) generateURL(conduitMethod string, params url.Values) string {
 	return c.url + "/api/" + conduitMethod + "?" + params.Encode()
 }
 
-func (c client) request(path string, params interface{ ToConduitParams() url.Values }) (json.RawMessage, error) {
+func (c Client) request(path string, params interface{ ToConduitParams() url.Values }) (json.RawMessage, error) {
 	urlParams := params.ToConduitParams()
 	urlParams.Set("api.token", c.token)
 
