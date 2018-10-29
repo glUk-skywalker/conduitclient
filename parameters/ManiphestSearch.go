@@ -8,7 +8,8 @@ import (
 // ManiphestSearch is the structure for the params of `maniphest.search` query
 type ManiphestSearch struct {
 	Constraints struct {
-		IDs []int
+		IDs      []int
+		Statuses []string
 	}
 }
 
@@ -17,6 +18,9 @@ func (p ManiphestSearch) ToConduitParams() url.Values {
 	params := url.Values{}
 	for i, v := range p.Constraints.IDs {
 		params.Add("constraints[ids]["+strconv.Itoa(i)+"]", strconv.Itoa(v))
+	}
+	for i, v := range p.Constraints.Statuses {
+		params.Add("constraints[statuses]["+strconv.Itoa(i)+"]", v)
 	}
 	return params
 }
