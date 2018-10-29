@@ -10,6 +10,7 @@ type ManiphestSearch struct {
 	Constraints struct {
 		IDs      []int
 		Statuses []string
+		Projects []string
 	}
 }
 
@@ -21,6 +22,9 @@ func (p ManiphestSearch) ToConduitParams() url.Values {
 	}
 	for i, v := range p.Constraints.Statuses {
 		params.Add("constraints[statuses]["+strconv.Itoa(i)+"]", v)
+	}
+	for i, v := range p.Constraints.Projects {
+		params.Add("constraints[projects]["+strconv.Itoa(i)+"]", v)
 	}
 	return params
 }
