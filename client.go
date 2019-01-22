@@ -23,7 +23,7 @@ func (c Client) UserWhoAmI() (responses.UserWhoAmI, error) {
 
 	basicResp, err := c.request("user.whoami", parameters.UserWhoAmI{})
 	if err != nil {
-		return userData, errors.New("whoami rquest error: " + err.Error())
+		return userData, errors.New("whoami request error: " + err.Error())
 	}
 
 	err = json.Unmarshal(basicResp, &userData)
@@ -39,7 +39,7 @@ func (c Client) ProjectSearch(params parameters.ProjectSearch) (responses.Projec
 
 	basicResp, err := c.request("project.search", params)
 	if err != nil {
-		return projectData, errors.New("project.search rquest error: " + err.Error())
+		return projectData, errors.New("project.search request error: " + err.Error())
 	}
 
 	err = json.Unmarshal(basicResp, &projectData)
@@ -55,7 +55,7 @@ func (c Client) ManiphestSearch(params parameters.ManiphestSearch) (responses.Ma
 
 	basicResp, err := c.request("maniphest.search", params)
 	if err != nil {
-		return tasksData, errors.New("maniphest.search rquest error: " + err.Error())
+		return tasksData, errors.New("maniphest.search request error: " + err.Error())
 	}
 
 	err = json.Unmarshal(basicResp, &tasksData)
@@ -72,7 +72,7 @@ func (c Client) ProjectColumnSearch(params parameters.ProjectColumnSearch) (resp
 
 	basicResp, err := c.request("project.column.search", params)
 	if err != nil {
-		return columnsData, errors.New("project.column.search rquest error: " + err.Error())
+		return columnsData, errors.New("project.column.search request error: " + err.Error())
 	}
 
 	err = json.Unmarshal(basicResp, &columnsData)
@@ -89,7 +89,7 @@ func (c Client) ManiphestEdit(params parameters.ManiphestEdit) (responses.Maniph
 
 	basicResp, err := c.request("maniphest.edit", params)
 	if err != nil {
-		return editData, errors.New("maniphest.edit rquest error: " + err.Error())
+		return editData, errors.New("maniphest.edit request error: " + err.Error())
 	}
 
 	err = json.Unmarshal(basicResp, &editData)

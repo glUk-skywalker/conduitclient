@@ -6,6 +6,8 @@ type Task struct {
 	Type   string `json:"type"`
 	PHID   string `json:"phid"`
 	Fields struct {
-		Name string `json:"name"`
+		Name        string `json:"name"`
+		DateClosed  int64  `json:"dateClosed"`
+		DateCreated int64  `json:"dateCreated"`
 	} `json:"fields"`
 }
