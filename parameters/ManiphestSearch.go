@@ -12,6 +12,8 @@ type ManiphestSearch struct {
 		Statuses []string
 		Projects []string
 	}
+	Order []string
+	After string
 }
 
 // ToConduitParams turns the structure to url.Values
@@ -26,5 +28,12 @@ func (p ManiphestSearch) ToConduitParams() url.Values {
 	for i, v := range p.Constraints.Projects {
 		params.Add("constraints[projects]["+strconv.Itoa(i)+"]", v)
 	}
+	for i, v := range p.Order {
+		params.Add("order["+strconv.Itoa(i)+"]", v)
+	}
+	if p.After != "" {
+		params.Add("after", p.After)
+	}
+
 	return params
 }
