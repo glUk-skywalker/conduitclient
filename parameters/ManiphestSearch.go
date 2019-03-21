@@ -12,8 +12,9 @@ type ManiphestSearch struct {
 		Statuses []string
 		Projects []string
 	}
-	Order []string
-	After string
+	Order       []string
+	After       string
+	Attachments map[string]bool
 }
 
 // ToConduitParams turns the structure to url.Values
@@ -34,6 +35,16 @@ func (p ManiphestSearch) ToConduitParams() url.Values {
 	if p.After != "" {
 		params.Add("after", p.After)
 	}
-
+	for key, v := range p.Attachments {
+		params.Add("attachments["+key+"]", btos(v))
+	}
 	return params
+}
+
+func btos(b bool) string {
+	if b {
+		return "1"
+	}
+
+	return "0"
 }
