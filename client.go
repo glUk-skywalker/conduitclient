@@ -100,6 +100,23 @@ func (c Client) ManiphestEdit(params parameters.ManiphestEdit) (responses.Maniph
 	return editData, nil
 }
 
+// ManiphestGetTaskTransactions performs the `maniphest.gettasktransactions` request
+func (c Client) ManiphestGetTaskTransactions(ids parameters.ManiphestGetTaskTransactions) (responses.ManiphestGetTaskTransactions, error) {
+	var transactions responses.ManiphestGetTaskTransactions
+
+	basicResp, err := c.request("maniphest.gettasktransactions", ids)
+	if err != nil {
+		return transactions, errors.New("maniphest.gettasktransactions rquest error: " + err.Error())
+	}
+
+	err = json.Unmarshal(basicResp, &transactions)
+	if err != nil {
+		return transactions, errors.New("response parsing error: " + err.Error())
+	}
+
+	return transactions, nil
+}
+
 // Client is object for interaction with the Phabricator conduit API
 type Client struct {
 	url   string
