@@ -21,10 +21,9 @@ type Task struct {
 			Name  string `json:"name"`
 		} `json:"status"`
 		Priority struct {
-			Value       int    `json:"value"`
-			Subpriority int    `json:"subpriority"`
-			Name        string `json:"name"`
-			Color       string `json:"color"`
+			Value int    `json:"value"`
+			Name  string `json:"name"`
+			Color string `json:"color"`
 		} `json:"priority"`
 	} `json:"fields"`
 	Attachments struct {
