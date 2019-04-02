@@ -8,10 +8,14 @@ type Project struct {
 	Fields struct {
 		Name      string `json:"name"`
 		Slug      string `json:"slug"`
-		Milestone string `json:"milestone"`
+		Milestone int    `json:"milestone"`
 		Depth     int64  `json:"depth"`
-		Parent    string `json:"parent"`
-		Icon      struct {
+		Parent    struct {
+			ID   int    `json:"id"`
+			PHID string `json:"phid"`
+			Name string `json:"name"`
+		} `json:"parent"`
+		Icon struct {
 			Key  string `json:"key"`
 			Name string `json:"name"`
 			Icon string `json:"icon"`
