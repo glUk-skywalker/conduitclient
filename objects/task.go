@@ -31,13 +31,13 @@ type Task struct {
 			ProjectPHIDs []string `json:"projectPHIDs"`
 		} `json:"projects"`
 		Columns struct {
-			Boards map[string]struct {
-				Columns []struct {
-					ID   int    `json:"id"`
-					PHID string `json:"phid"`
-					Name string `json:"name"`
-				}
-			} `json:"boards"`
+			// Boards map[string]struct {
+			// 	Columns []struct {
+			// 		ID   int    `json:"id"`
+			// 		PHID string `json:"phid"`
+			// 		Name string `json:"name"`
+			// 	}
+			// } `json:"boards"`
 		} `json:"columns"`
 	} `json:"attachments"`
 }
