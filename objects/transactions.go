@@ -33,3 +33,16 @@ func (t StatusTransaction) AppendTo(params *url.Values, transactionPrefix string
 	params.Add(transactionPrefix+"[type]", "status")
 	params.Add(transactionPrefix+"[value]", t.Value)
 }
+
+// AddTask is the structure for add transactions
+type AddTask struct {
+	Value []string
+}
+
+// AppendTo appends itself to the passed url.Values with the passed prefix
+func (t AddTask) AppendTo(params *url.Values, transactionPrefix string) {
+	params.Add(transactionPrefix+"[type]", "tasks.add")
+	for i, v := range t.Value {
+		params.Add(transactionPrefix+"[value]["+strconv.Itoa(i)+"]", v)
+	}
+}
