@@ -3,6 +3,7 @@ package conduitclient
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -15,6 +16,33 @@ import (
 // New creates and instance of Client
 func New(path string, token string) Client {
 	return Client{url: path, token: token}
+}
+
+// DifferentialGetCommitMessage performs the `differential.getcommitmessage` request
+func (c Client) DifferentialGetCommitMessage(params parameters.DifferentialGetCommitMessage) (string, error) {
+	var message string
+
+	resp, err := c.request("differential.getcommitmessage", params)
+	if err != nil {
+		return message, fmt.Errorf("differential.getcommitmessage request error: %s", err)
+	}
+
+	err = json.Unmarshal(resp, &message)
+	if err != nil {
+		return message, fmt.Errorf("response parsing error: %s", err)
+	}
+
+	return message, nil
+}
+
+// DifferentialRevisionEdit performs the `differential.revision.edit` request
+func (c Client) DifferentialRevisionEdit(params parameters.DifferentialRevisionEdit) error {
+	_, err := c.request("differential.revision.edit", params)
+	if err != nil {
+		return fmt.Errorf("differential.revision.edit request error: %s", err)
+	}
+
+	return nil
 }
 
 // UserWhoAmI performs the `service.whoami` request
