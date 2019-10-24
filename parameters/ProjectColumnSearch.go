@@ -1,8 +1,6 @@
 package parameters
 
 import (
-	"strconv"
-
 	"github.com/gluk-skywalker/conduitclient/urlvalues"
 )
 
@@ -16,8 +14,8 @@ type ProjectColumnSearch struct {
 // ToConduitParams turns the structure to urlvalues.URLValues
 func (p ProjectColumnSearch) ToConduitParams() urlvalues.URLValues {
 	params := urlvalues.URLValues{}
-	for i, v := range p.Constraints.Projects {
-		params.Add("constraints[projects]["+strconv.Itoa(i)+"]", v)
+	for _, v := range p.Constraints.Projects {
+		params.Add("constraints[projects]", v)
 	}
 	return params
 }

@@ -12,8 +12,8 @@ type ManiphestGetTaskTransactions []int
 // ToConduitParams turns the structure to urlvalues.URLValues
 func (p ManiphestGetTaskTransactions) ToConduitParams() urlvalues.URLValues {
 	params := urlvalues.URLValues{}
-	for i, v := range p {
-		params.Add("ids["+strconv.Itoa(i)+"]", strconv.Itoa(v))
+	for _, v := range p {
+		params.Add("ids", strconv.Itoa(v))
 	}
 	return params
 }

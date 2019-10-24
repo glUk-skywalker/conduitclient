@@ -1,8 +1,6 @@
 package parameters
 
 import (
-	"strconv"
-
 	"github.com/gluk-skywalker/conduitclient/objects"
 	"github.com/gluk-skywalker/conduitclient/urlvalues"
 )
@@ -19,9 +17,8 @@ func (p DifferentialRevisionEdit) ToConduitParams() urlvalues.URLValues {
 
 	params.Set("objectIdentifier", p.ObjectIdentifier)
 
-	for i, transaction := range p.Transactions {
-		transactionPrefix := "transactions[" + strconv.Itoa(i) + "]"
-		transaction.AppendTo(&params, transactionPrefix)
+	for _, transaction := range p.Transactions {
+		transaction.AppendTo(&params, "transactions")
 	}
 
 	return params
