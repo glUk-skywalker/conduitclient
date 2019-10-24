@@ -1,10 +1,8 @@
 package parameters
 
 import (
-	"net/url"
-	"strconv"
-
 	"github.com/gluk-skywalker/conduitclient/objects"
+	"github.com/gluk-skywalker/conduitclient/urlvalues"
 )
 
 // ManiphestEdit is the structure for the params of `maniphest.edit` query
@@ -13,15 +11,14 @@ type ManiphestEdit struct {
 	Transactions     []objects.URLParamAppendable
 }
 
-// ToConduitParams turns the structure to url.Values
-func (p ManiphestEdit) ToConduitParams() url.Values {
-	params := url.Values{}
+// ToConduitParams turns the structure to urlvalues.URLValues
+func (p ManiphestEdit) ToConduitParams() urlvalues.URLValues {
+	params := urlvalues.URLValues{}
 
 	params.Set("objectIdentifier", p.ObjectIdentifier)
 
-	for iTransaction, vTransaction := range p.Transactions {
-		transactionPrefix := "transactions[" + strconv.Itoa(iTransaction) + "]"
-		vTransaction.AppendTo(&params, transactionPrefix)
+	for _, vTransaction := range p.Transactions {
+		vTransaction.AppendTo(&params, "transactions")
 	}
 
 	return params

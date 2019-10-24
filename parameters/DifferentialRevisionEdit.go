@@ -1,10 +1,10 @@
 package parameters
 
 import (
-	"net/url"
 	"strconv"
 
 	"github.com/gluk-skywalker/conduitclient/objects"
+	"github.com/gluk-skywalker/conduitclient/urlvalues"
 )
 
 // DifferentialRevisionEdit is the structure for the params of `differential.revision.edit` query
@@ -13,9 +13,9 @@ type DifferentialRevisionEdit struct {
 	ObjectIdentifier string
 }
 
-// ToConduitParams turns the structure to url.Values
-func (p DifferentialRevisionEdit) ToConduitParams() url.Values {
-	params := url.Values{}
+// ToConduitParams turns the structure to urlvalues.URLValues
+func (p DifferentialRevisionEdit) ToConduitParams() urlvalues.URLValues {
+	params := urlvalues.URLValues{}
 
 	params.Set("objectIdentifier", p.ObjectIdentifier)
 
