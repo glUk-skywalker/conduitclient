@@ -1,8 +1,9 @@
 package parameters
 
 import (
-	"net/url"
 	"strconv"
+
+	"github.com/gluk-skywalker/conduitclient/urlvalues"
 )
 
 // ManiphestSearch is the structure for the params of `maniphest.search` query
@@ -17,9 +18,9 @@ type ManiphestSearch struct {
 	Attachments map[string]bool
 }
 
-// ToConduitParams turns the structure to url.Values
-func (p ManiphestSearch) ToConduitParams() url.Values {
-	params := url.Values{}
+// ToConduitParams turns the structure to urlvalues.URLValues
+func (p ManiphestSearch) ToConduitParams() urlvalues.URLValues {
+	params := urlvalues.URLValues{}
 	for i, v := range p.Constraints.IDs {
 		params.Add("constraints[ids]["+strconv.Itoa(i)+"]", strconv.Itoa(v))
 	}

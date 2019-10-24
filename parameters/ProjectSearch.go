@@ -1,8 +1,9 @@
 package parameters
 
 import (
-	"net/url"
 	"strconv"
+
+	"github.com/gluk-skywalker/conduitclient/urlvalues"
 )
 
 // ProjectSearch is the structure for the params of `project.search` query
@@ -13,11 +14,11 @@ type ProjectSearch struct {
 	}
 }
 
-// ToConduitParams turns the structure to url.Values
-func (p ProjectSearch) ToConduitParams() url.Values {
-	params := url.Values{}
-	for i, v := range p.Constraints.PHIDs {
-		params.Add("constraints[phids]["+strconv.Itoa(i)+"]", v)
+// ToConduitParams turns the structure to urlvalues.URLValues
+func (p ProjectSearch) ToConduitParams() urlvalues.URLValues {
+	params := urlvalues.URLValues{}
+	for i := 0; i < len(p.Constraints.PHIDs); i++ {
+		params.Add("constraints[phids]["+strconv.Itoa(i)+"]", p.Constraints.PHIDs[i])
 	}
 	return params
 }
