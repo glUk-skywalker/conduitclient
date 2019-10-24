@@ -21,17 +21,17 @@ type ManiphestSearch struct {
 // ToConduitParams turns the structure to urlvalues.URLValues
 func (p ManiphestSearch) ToConduitParams() urlvalues.URLValues {
 	params := urlvalues.URLValues{}
-	for _, v := range p.Constraints.IDs {
-		params.Add("constraints[ids]", strconv.Itoa(v))
+	for i, v := range p.Constraints.IDs {
+		params.Add("constraints[ids]["+strconv.Itoa(i)+"]", strconv.Itoa(v))
 	}
-	for _, v := range p.Constraints.Statuses {
-		params.Add("constraints[statuses]", v)
+	for i, v := range p.Constraints.Statuses {
+		params.Add("constraints[statuses]["+strconv.Itoa(i)+"]", v)
 	}
-	for _, v := range p.Constraints.Projects {
-		params.Add("constraints[projects]", v)
+	for i, v := range p.Constraints.Projects {
+		params.Add("constraints[projects]["+strconv.Itoa(i)+"]", v)
 	}
-	for _, v := range p.Order {
-		params.Add("order", v)
+	for i, v := range p.Order {
+		params.Add("order["+strconv.Itoa(i)+"]", v)
 	}
 	if p.After != "" {
 		params.Add("after", p.After)
