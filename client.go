@@ -152,7 +152,7 @@ type Client struct {
 }
 
 func (c Client) generateURL(conduitMethod string, params urlvalues.URLValues) string {
-	return c.url + "/api/" + conduitMethod + "?" + params.NoSortEncode()
+	return c.url + "/api/" + conduitMethod + "?" + params.Encode()
 }
 
 func (c Client) request(path string, params interface{ ToConduitParams() urlvalues.URLValues }) (json.RawMessage, error) {

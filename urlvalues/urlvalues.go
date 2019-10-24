@@ -2,13 +2,14 @@ package urlvalues
 
 import (
 	"net/url"
+	"sort"
 	"strconv"
 	"strings"
 )
 
 type URLValues url.Values
 
-func (v URLValues) NoSortEncode() string {
+func (v URLValues) Encode() string {
 	if v == nil {
 		return ""
 	}
@@ -17,7 +18,7 @@ func (v URLValues) NoSortEncode() string {
 	for k := range v {
 		keys = append(keys, k)
 	}
-	// sort.Strings(keys)
+	sort.Strings(keys)
 	for _, k := range keys {
 		vs := v[k]
 		keyEscaped := url.QueryEscape(k)
