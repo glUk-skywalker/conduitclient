@@ -2,6 +2,7 @@ package urlvalues
 
 import (
 	"net/url"
+	"strconv"
 	"strings"
 )
 
@@ -20,9 +21,12 @@ func (v URLValues) NoSortEncode() string {
 	for _, k := range keys {
 		vs := v[k]
 		keyEscaped := url.QueryEscape(k)
-		for _, v := range vs {
+		for i, v := range vs {
 			if buf.Len() > 0 {
 				buf.WriteByte('&')
+			}
+			if len(vs) > 1 {
+				keyEscaped = url.QueryEscape(k + "[" + strconv.Itoa(i) + "]")
 			}
 			buf.WriteString(keyEscaped)
 			buf.WriteByte('=')

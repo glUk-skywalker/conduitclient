@@ -1,8 +1,6 @@
 package parameters
 
 import (
-	"strconv"
-
 	"github.com/gluk-skywalker/conduitclient/urlvalues"
 )
 
@@ -18,7 +16,7 @@ type ProjectSearch struct {
 func (p ProjectSearch) ToConduitParams() urlvalues.URLValues {
 	params := urlvalues.URLValues{}
 	for i := 0; i < len(p.Constraints.PHIDs); i++ {
-		params.Add("constraints[phids]["+strconv.Itoa(i)+"]", p.Constraints.PHIDs[i])
+		params.Add("constraints[phids]", p.Constraints.PHIDs[i])
 	}
 	return params
 }
