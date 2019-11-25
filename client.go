@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"strconv"
 
 	"github.com/gluk-skywalker/conduitclient/parameters"
 	"github.com/gluk-skywalker/conduitclient/responses"
-	"github.com/gluk-skywalker/conduitclient/urlvalues"
 )
 
 // New creates and instance of Client
@@ -151,11 +151,11 @@ type Client struct {
 	token string
 }
 
-func (c Client) generateURL(conduitMethod string, params urlvalues.URLValues) string {
+func (c Client) generateURL(conduitMethod string, params url.Values) string {
 	return c.url + "/api/" + conduitMethod + "?" + params.Encode()
 }
 
-func (c Client) request(path string, params interface{ ToConduitParams() urlvalues.URLValues }) (json.RawMessage, error) {
+func (c Client) request(path string, params interface{ ToConduitParams() url.Values }) (json.RawMessage, error) {
 	urlParams := params.ToConduitParams()
 	urlParams.Set("api.token", c.token)
 
