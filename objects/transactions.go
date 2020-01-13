@@ -34,7 +34,7 @@ func (t StatusTransaction) AppendTo(params *url.Values, transactionPrefix string
 	params.Add(transactionPrefix+"[value]", t.Value)
 }
 
-// AddTask is the structure for add transactions
+// AddTask is the structure for add task transactions
 type AddTask struct {
 	Value []string
 }
@@ -45,4 +45,15 @@ func (t AddTask) AppendTo(params *url.Values, transactionPrefix string) {
 	for i, v := range t.Value {
 		params.Add(transactionPrefix+"[value]["+strconv.Itoa(i)+"]", v)
 	}
+}
+
+// AddComment is the structure for add comment transactions
+type AddComment struct {
+	Value string
+}
+
+// AppendTo appends itself to the passed url.Values with the passed prefix
+func (c AddComment) AppendTo(params *url.Values, transactionPrefix string) {
+	params.Add(transactionPrefix+"[type]", "comment")
+	params.Add(transactionPrefix+"[value]", c.Value)
 }
