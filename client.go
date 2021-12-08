@@ -9,8 +9,8 @@ import (
 	"net/url"
 	"strconv"
 
-	"conduitclient/parameters"
-	"conduitclient/responses"
+	"github.com/glUk-skywalker/conduitclient/parameters"
+	"github.com/glUk-skywalker/conduitclient/responses"
 )
 
 // New creates and instance of Client
