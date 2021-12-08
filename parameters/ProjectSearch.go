@@ -9,7 +9,8 @@ import (
 type ProjectSearch struct {
 	QueryKey    []int
 	Constraints struct {
-		PHIDs []string
+		PHIDs   []string
+		Members []string
 	}
 }
 
@@ -19,5 +20,10 @@ func (p ProjectSearch) ToConduitParams() url.Values {
 	for i, v := range p.Constraints.PHIDs {
 		params.Add("constraints[phids]["+strconv.Itoa(i)+"]", v)
 	}
+
+	for i, v := range p.Constraints.Members {
+		params.Add("constraints[members]["+strconv.Itoa(i)+"]", v)
+	}
+
 	return params
 }

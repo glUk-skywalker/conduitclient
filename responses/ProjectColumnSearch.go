@@ -1,8 +1,8 @@
 package responses
 
 import (
-	"github.com/gluk-skywalker/conduitclient/objects"
-	"github.com/gluk-skywalker/conduitclient/serviceobjects"
+	"conduitclient/objects"
+	"conduitclient/serviceobjects"
 )
 
 // ProjectColumnSearch is the response stricture for the reuqest `project.column.search`

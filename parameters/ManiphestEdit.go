@@ -4,7 +4,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/gluk-skywalker/conduitclient/objects"
+	"conduitclient/objects"
 )
 
 // ManiphestEdit is the structure for the params of `maniphest.edit` query

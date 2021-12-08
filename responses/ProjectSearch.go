@@ -1,8 +1,8 @@
 package responses
 
 import (
-	"github.com/gluk-skywalker/conduitclient/objects"
-	"github.com/gluk-skywalker/conduitclient/serviceobjects"
+	"conduitclient/objects"
+	"conduitclient/serviceobjects"
 )
 
 // ProjectSearch is the response stricture for the reuqest `project.search`
