@@ -1,7 +1,7 @@
 package responses
 
 import (
-	"conduitclient/objects"
+	"github.com/glUk-skywalker/conduitclient/objects"
 )
 
 // ManiphestGetTaskTransactions is the response stricture for the reuqest `maniphest.gettasktransactions`

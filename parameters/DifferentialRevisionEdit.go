@@ -4,7 +4,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"conduitclient/objects"
+	"github.com/glUk-skywalker/conduitclient/objects"
 )
 
 // DifferentialRevisionEdit is the structure for the params of `differential.revision.edit` query
