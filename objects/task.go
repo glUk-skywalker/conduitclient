@@ -25,6 +25,8 @@ type Task struct {
 			Name  string `json:"name"`
 			Color string `json:"color"`
 		} `json:"priority"`
+		CustomType    string `json:"custom.type"`
+		CustomVersion string `json:"custom.version"`
 	} `json:"fields"`
 	Attachments struct {
 		Projects struct {
